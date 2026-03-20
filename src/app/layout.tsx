@@ -5,6 +5,7 @@ import { PrivateRoute } from '@/_pages/index'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { Theme } from './theme'
+import { LayoutUI } from '@/widjets'
 const geistSans = Geist({
 	variable: '--font-geist-sans',
 	subsets: ['latin'],
@@ -30,8 +31,9 @@ export default function RootLayout({
 			<body>
 				<AppRouterCacheProvider>
 					<ThemeProvider theme={Theme}>
-						<PrivateRoute>{children}</PrivateRoute>
-
+						<PrivateRoute>
+							<LayoutUI>{children}</LayoutUI>
+						</PrivateRoute>
 						<CssBaseline />
 					</ThemeProvider>
 				</AppRouterCacheProvider>
