@@ -1,9 +1,12 @@
 'use client'
 
-import { Box } from "@mui/material"
+import { AddScale } from '@/widjets'
+import { Box } from '@mui/material'
 
 export const Constructor = () => {
-  return (
-    <Box></Box>
-  )
+	return (
+		<Box>
+			<AddScale />
+		</Box>
+	)
 }
