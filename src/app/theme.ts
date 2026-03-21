@@ -1,23 +1,31 @@
 'use client'
 
-import { blue, teal } from '@mui/material/colors'
-import { createTheme } from '@mui/material/styles'
+import { createTheme } from "@mui/material/styles";
 
 export const Theme = createTheme({
-	colorSchemes: {
-		light: {
-			palette: {
-				primary: {
-					main: blue[700],
-					light: blue[500],
-					dark: blue[900],
-				},
-				secondary: {
-					main: teal[500],
-					light: teal[300],
-					dark: teal[700],
-				},
-			},
-		},
-	},
-})
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#13a749",
+    },
+    background: {
+      default: "#000000",
+      paper: "#0a0a0a",
+    },
+    text: {
+      primary: "#ffffff",
+      secondary: "#b3b3b3",
+    },
+  },
+  typography: {
+    fontFamily: `"Inter", "SF Pro Display", sans-serif`,
+    h1: {
+      fontSize: "72px",
+      fontWeight: 600,
+      lineHeight: 1.1,
+    },
+    body1: {
+      fontSize: "18px",
+    },
+  },
+});

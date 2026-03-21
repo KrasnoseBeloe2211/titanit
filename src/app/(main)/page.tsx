@@ -1,5 +1,11 @@
-import { MainPage } from '@/_pages/MainPage'
+import { Header } from '@/shared/ui/Header'
+import { Hero } from '@/shared/ui/Hero'
 
-export default function Page() {
-	return <MainPage />
+export default function Home() {
+  return (
+    <>
+      <Header />
+      <Hero />
+    </>
+  )
 }
