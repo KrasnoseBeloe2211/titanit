@@ -5,7 +5,7 @@ import { TestsStore } from '@/entities/test/model/store';
 import { Box, Typography, TextField, InputAdornment, Button, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { Search, ContentCopy, Delete, Edit, Add } from '@mui/icons-material';
 
-export const Test = () => {
+export const Test = () => {  
   const [searchTerm, setSearchTerm] = useState('');
   // const tests = TestsStore((state) => state.tests);
   const [tests, setTests] = useState(TestsStore.getState().tests)
