@@ -32,14 +32,10 @@ export const Test = () => {
     getTests('1')
   }, [])
 
-<<<<<<< HEAD
-		const unsubscribe = TestsStore.subscribe(state => {
-			setTests(state.tests)
-		})
-=======
+
+
   useEffect(() => {
-    setTests(TestsStore.getState().tests)
->>>>>>> 8ae3019d958ea19ab9b97c8507a5628db2fed909
+
 
     const unsubscribe = TestsStore.subscribe((state) => {
       setTests(state.tests)
@@ -48,17 +44,9 @@ export const Test = () => {
     return unsubscribe
   }, [])
 
-<<<<<<< HEAD
-	const filteredTests = useMemo(
-		() =>
-			tests.filter(test =>
-				test.title.toLowerCase().includes(searchTerm.toLowerCase()),
-			),
-		[tests, searchTerm],
-	)
-=======
+
   const deleteTest = TestsStore.getState().deleteTest
->>>>>>> 8ae3019d958ea19ab9b97c8507a5628db2fed909
+
 
   const filteredTests = useMemo(
     () =>
@@ -72,65 +60,6 @@ export const Test = () => {
     const link = `${window.location.origin}/survey/${id}`
     navigator.clipboard.writeText(link)
   }
-
-<<<<<<< HEAD
-			<TextField
-				fullWidth
-				placeholder='Поиск по названию...'
-				value={searchTerm}
-				onChange={e => setSearchTerm(e.target.value)}
-				sx={{ mb: 3 }}
-				InputProps={{
-					startAdornment: (
-						<InputAdornment position='start'>
-							<Search />
-						</InputAdornment>
-					),
-				}}
-			/>
-
-			<TableContainer component={Paper}>
-				<Table>
-					<TableHead>
-						<TableRow>
-							<TableCell>Название</TableCell>
-							<TableCell align='center'>Вопросов</TableCell>
-							<TableCell align='center'>Шкал</TableCell>
-							<TableCell align='center'>Действия</TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{filteredTests.map(test => (
-							<TableRow key={test.id}>
-								<TableCell>
-									<Typography fontWeight={500}>{test.title}</Typography>
-									<Typography variant='caption' color='text.secondary'>
-										{test.description}
-									</Typography>
-								</TableCell>
-								<TableCell align='center'>
-									{test.schema?.questions?.length ?? 0}
-								</TableCell>
-								<TableCell align='center'>
-									{test.schema?.scales?.length ?? 0}
-								</TableCell>
-								<TableCell align='center'>
-									<IconButton onClick={() => handleCopyLink(test.id)}>
-										<ContentCopy />
-									</IconButton>
-									<IconButton>
-										<Edit />
-									</IconButton>
-									<IconButton onClick={() => deleteTest(test.id)}>
-										<Delete />
-									</IconButton>
-								</TableCell>
-							</TableRow>
-						))}
-					</TableBody>
-				</Table>
-			</TableContainer>
-=======
   const handleCreateSurvey = () => {
     router.push('/constructor')
   }
@@ -138,7 +67,8 @@ export const Test = () => {
   const handleEditSurvey = (id: string) => {
     router.push(`/constructor/${id}`)
   }
->>>>>>> 8ae3019d958ea19ab9b97c8507a5628db2fed909
+
+
 
   return (
     <Box sx={{ p: 3 }}>
