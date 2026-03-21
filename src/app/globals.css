@@ -1,17 +1,30 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0d1117;
+  --foreground: #f0f6fc;
+  --card-bg: rgba(22, 27, 34, 0.6);
+  --card-border: rgba(48, 54, 61, 0.8);
+  --accent: #13a749;
+  --accent-dim: rgba(19, 167, 73, 0.15);
+  --text-secondary: #8b949e;
+  --glow: 0 0 40px rgba(19, 167, 73, 0.15);
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #f5f7fa;
+    --foreground: #1a1d24;
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --card-border: rgba(200, 210, 220, 0.6);
+    --accent: #13a749;
+    --accent-dim: rgba(19, 167, 73, 0.1);
+    --text-secondary: #6b7280;
+    --glow: 0 0 30px rgba(19, 167, 73, 0.1);
   }
 }
 
 html {
   height: 100%;
+  color-scheme: dark;
 }
 
 html,
@@ -26,7 +39,10 @@ body {
   flex-direction: column;
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-image: 
+    radial-gradient(ellipse at top, var(--accent-dim) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom, var(--accent-dim) 0%, transparent 40%);
+  font-family: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -42,8 +58,37 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+/* Glassmorphism карточки */
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Эффект свечения для акцентов */
+.glow-effect {
+  box-shadow: var(--glow);
+}
+
+/* Плавные анимации */
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.3s ease;
+}
+
+/* Стили для отчётов */
+.report-description {
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.report-description p {
+  margin-bottom: 12px;
+}
+
+/* Моноширинный шрифт для цифр */
+.mono {
+  font-family: "JetBrains Mono", "Fira Code", monospace;
 }

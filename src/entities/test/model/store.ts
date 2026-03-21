@@ -1,21 +1,29 @@
 import { Test } from './types'
 import { create } from 'zustand'
+import { getTests } from './api'
 
 interface ITestsStore {
 	tests: Test[]
 	loading: boolean
 	error: string | null
 
+	loadTests: (psychologistId: string) => Promise<void>
 	setTests: (tests: Test[]) => void
 	addTest: (test: Test) => void
 	updateTest: (id: string, updatedTest: Partial<Test>) => void
 	deleteTest: (id: string) => void
 }
 
-export const TestsStore = create<ITestsStore>(set => ({
+export const TestsStore = create<ITestsStore>((set, get) => ({
 	tests: [],
 	loading: false,
 	error: null,
+
+	loadTests: async (psychologistId: string) => {
+		set({ loading: true, error: null })
+		await getTests(psychologistId)
+		set({ loading: false })
+	},
 
 	setTests: tests => set({ tests }),
 
@@ -36,3 +44,8 @@ export const TestsStore = create<ITestsStore>(set => ({
 			tests: state.tests.filter(test => test.id !== id),
 		})),
 }))
+
+export const useTests = () => {
+	const { tests, loading, error } = TestsStore()
+	return { tests, loading, error }
+}
