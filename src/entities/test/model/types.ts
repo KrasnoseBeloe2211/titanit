@@ -3,6 +3,8 @@ export interface Test {
 	psychologist_id: string
 	title: string
 	description: string
+	responses?: number
+	lastActive?: string
 	schema: {
 		scales: IScale[]
 		questions: IQuestion[]
@@ -11,9 +13,9 @@ export interface Test {
 
 export interface IQuestion {
 	id: string
-	type: 'single_choice' | 'multi_choice'
+	type: string
 	text: string
-	options?: Option[]
+	options: Option[]
 }
 
 export interface Option {
@@ -22,8 +24,9 @@ export interface Option {
 	weights: any
 }
 
-interface ILevels {
+export interface ILevels {
 	id: string
+	label: string
 	score_from: number
 	score_to: number
 	text_client: string
@@ -33,7 +36,7 @@ interface ILevels {
 export interface IScale {
 	id: string
 	name: string
-	min?: number
+	min: number
 	max: number
-	levels: ILevels[]
+	levels?: ILevels[]
 }

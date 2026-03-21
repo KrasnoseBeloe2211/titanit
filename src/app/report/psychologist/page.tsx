@@ -19,6 +19,7 @@ export default function PsychologistReportPage() {
     <Card>
       <CardContent>
         <Typography variant="h5">Отчёт для психолога</Typography>
+
         <BarChartBlock data={data} />
         {data.map((item) => (
           <Typography key={item.name}>
