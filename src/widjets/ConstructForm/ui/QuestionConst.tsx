@@ -6,12 +6,19 @@ import { DragDropProvider } from '@dnd-kit/react'
 import { Droppable } from '@/shared/ui/Droppable/Droppable'
 import { Draggable } from '@/shared/ui/Draggable/Draggable'
 import { QuestionTemplate } from '@/shared/ui/QuestionTemplate/QuestionTemplate'
-import { IQuestion } from '@/entities/test'
+import { IQuestion, IScale } from '@/entities/test'
 import { useIsMobile } from '@/shared/helpers/hooks/useIsMobile'
 import { v4 } from 'uuid'
 
-export const QuestionConst = () => {
-	const [droppedItems, setDroppedItems] = useState<IQuestion[]>([])
+export const QuestionConst = ({
+	scales,
+	droppedItems,
+	setDroppedItems,
+}: {
+	scales: IScale[]
+	droppedItems: IQuestion[]
+	setDroppedItems: any
+}) => {
 	const [dropped, setIsDropped] = useState(false)
 	console.log(droppedItems)
 	const { isMobile } = useIsMobile()
@@ -44,7 +51,7 @@ export const QuestionConst = () => {
 					if (target?.id === 'droppable') {
 						const template = templates.find(t => t.id === source?.id)
 						if (template) {
-							setDroppedItems(prev => [
+							setDroppedItems((prev: IQuestion[]) => [
 								...prev,
 								{ ...template, id: `${v4().split('-')[1]}` },
 							])
@@ -66,10 +73,13 @@ export const QuestionConst = () => {
 							{droppedItems.map((item, index) => (
 								<Draggable key={`${item.id}-${index}`} id={item.id}>
 									<QuestionTemplate
+										scales={scales}
 										isDropped={dropped}
+										questions={droppedItems}
 										question={item}
+										Deleted={setDroppedItems}
 										onChange={updated => {
-											setDroppedItems(prev =>
+											setDroppedItems((prev: IQuestion[]) =>
 												prev.map((it, i) => (i === index ? updated : it)),
 											)
 										}}

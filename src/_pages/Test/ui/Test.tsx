@@ -27,7 +27,7 @@ export const Test = () => {
 	useEffect(() => {
 		setTests(TestsStore.getState().tests)
 
-		const unsubscribe = TestsStore.subscribe((state) => {
+		const unsubscribe = TestsStore.subscribe(state => {
 			setTests(state.tests)
 		})
 
@@ -38,7 +38,7 @@ export const Test = () => {
 
 	const filteredTests = useMemo(
 		() =>
-			tests.filter((test) =>
+			tests.filter(test =>
 				test.title.toLowerCase().includes(searchTerm.toLowerCase()),
 			),
 		[tests, searchTerm],
@@ -62,7 +62,7 @@ export const Test = () => {
 				fullWidth
 				placeholder='Поиск по названию...'
 				value={searchTerm}
-				onChange={(e) => setSearchTerm(e.target.value)}
+				onChange={e => setSearchTerm(e.target.value)}
 				sx={{ mb: 3 }}
 				InputProps={{
 					startAdornment: (
@@ -84,7 +84,7 @@ export const Test = () => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{filteredTests.map((test) => (
+						{filteredTests.map(test => (
 							<TableRow key={test.id}>
 								<TableCell>
 									<Typography fontWeight={500}>{test.title}</Typography>

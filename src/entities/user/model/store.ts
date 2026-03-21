@@ -1,29 +1,61 @@
-// entities/user/store.ts
+'use client'
+
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import type { IUser } from './type'
+import { getCookie } from '@/shared/helpers/index'
 import { jwtDecode } from 'jwt-decode'
 
-interface UserStore {
-	user: any
+interface IUserStore extends IUser {
 	isAuthed: boolean
-	login: () => void
-	logout: () => void
+	setAuth: () => void
 }
 
-export const useUserStore = create<UserStore>()(set => ({
-	user: null,
+const defaultState: Omit<IUserStore, 'setAuth'> = {
+	email: '',
+	user: {},
+	jwt_refresh: '',
 	isAuthed: false,
+}
 
-	login: () => {
-		const token: any = localStorage.getItem('access_token')
-		set({
-			user: jwtDecode(token),
+const getInitialState = () => {
+	if (typeof window === 'undefined') {
+		return defaultState
+	}
+
+	const token = localStorage.getItem('access_token')
+	if (!token) {
+		return defaultState
+	}
+	try {
+		const decoded = jwtDecode(token)
+		return {
+			email: decoded.sub || '',
+			user: decoded,
+			jwt_refresh: getCookie('refresh_token'),
 			isAuthed: true,
-		})
-	},
+		}
+	} catch {
+		return defaultState
+	}
+}
 
-	logout: () => {
-		localStorage.removeItem('access_token')
-		set({ user: null, isAuthed: false })
+export const useUserStore = create<IUserStore>(set => ({
+	...getInitialState(),
+	setAuth: () => {
+		if (typeof window === 'undefined') {
+			set({ isAuthed: false })
+			return
+		}
+		const token = localStorage.getItem('access_token')
+		if (!token) {
+			set({ isAuthed: false })
+			return
+		}
+		const decoded = jwtDecode(token)
+		set({
+			isAuthed: true,
+			user: decoded,
+			jwt_refresh: getCookie('refresh_token'),
+		})
 	},
 }))

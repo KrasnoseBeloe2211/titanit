@@ -1,4 +1,4 @@
-import { IQuestion, IScale } from '@/entities/test'
+import { IQuestion, IScale, Option } from '@/entities/test'
 import { NumberField } from '@base-ui/react/number-field'
 import {
 	Box,
@@ -15,21 +15,25 @@ import {
 } from '@mui/material'
 import { MultipleCheckbox } from '../MultipleCheckBox/MultipleCheckbox'
 import { SingleChoice } from '../SingleChoice/SingleChoice'
-import { ArrowDropDown } from '@mui/icons-material'
+import { ArrowDropDown, Delete } from '@mui/icons-material'
 import { v4 } from 'uuid'
 
 interface QuestionTemplateProps {
 	question: IQuestion
 	onChange?: (value: IQuestion) => void
+	Deleted?: any
 	readOnly?: boolean
 	isDropped?: boolean
+	questions?: IQuestion[]
 	scales?: IScale[]
 }
 
 export const QuestionTemplate = ({
 	question,
 	onChange,
+	Deleted,
 	scales,
+	questions,
 	isDropped,
 	readOnly = false,
 }: QuestionTemplateProps) => {
@@ -47,6 +51,14 @@ export const QuestionTemplate = ({
 		// })
 		const currentOptions = question.options
 	}
+	const handleDeleteQuestion = (id: string) => {
+		if (questions && Deleted) {
+			const updatedQuestions = questions.filter(
+				(quest: IQuestion) => quest.id !== id,
+			)
+			Deleted(updatedQuestions)
+		}
+	}
 
 	return (
 		<Box
@@ -56,16 +68,37 @@ export const QuestionTemplate = ({
 			bgcolor='white'
 			width='100%'
 		>
-			<TextField
-				disabled={!isDropped}
-				fullWidth
-				label='Текст вопроса'
-				value={question.text}
-				onChange={e => onChange?.({ ...question, text: e.target.value })}
-				size='small'
-				sx={{ mb: 2 }}
-			/>
-
+			<Box marginY={'10px'} display={'flex'} gap={'10px'} alignItems={'center'}>
+				<TextField
+					disabled={!isDropped}
+					fullWidth
+					label='Текст вопроса'
+					value={question.text}
+					onChange={e => onChange?.({ ...question, text: e.target.value })}
+					size='small'
+				/>
+				<Button
+					onClick={e => {
+						e.stopPropagation()
+						handleDeleteQuestion(question.id)
+					}}
+					disabled={!isDropped}
+					variant='outlined'
+					color='error'
+					sx={{
+						minWidth: '40px',
+						width: '40px',
+						height: '40px',
+						borderRadius: '50%',
+						padding: 0,
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+					}}
+				>
+					<Delete sx={{ width: '20px', height: '20px' }} />
+				</Button>
+			</Box>
 			{question.type === 'single_choice' ? (
 				<Box
 					marginBottom={'10px'}
@@ -89,6 +122,8 @@ export const QuestionTemplate = ({
 					marginBottom={'10px'}
 				>
 					<MultipleCheckbox
+						question={question}
+						onChange={onChange}
 						scales={scales || []}
 						isDropped={isDropped || false}
 						data={
@@ -99,17 +134,19 @@ export const QuestionTemplate = ({
 					/>
 				</Box>
 			)}
-			<Button
-				onClick={e => {
-					e.stopPropagation()
-					handleAddOption(question.options)
-				}}
-				disabled={!isDropped}
-				variant='contained'
-				sx={{ width: '10px', height: '60px', borderRadius: '100%' }}
-			>
-				<Typography variant='h4'>+</Typography>
-			</Button>
+			<Box display={'flex'}>
+				<Button
+					onClick={e => {
+						e.stopPropagation()
+						handleAddOption(question.options)
+					}}
+					disabled={!isDropped}
+					variant='contained'
+					sx={{ width: '10px', height: '60px', borderRadius: '100%' }}
+				>
+					<Typography variant='h4'>+</Typography>
+				</Button>
+			</Box>
 		</Box>
 	)
 }

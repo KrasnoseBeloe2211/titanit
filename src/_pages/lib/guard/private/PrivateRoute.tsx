@@ -4,10 +4,10 @@ import { useUserStore } from '@/entities/user/model/store'
 import { useRouter, usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-const publicPaths = ['/', '/login', '/register']
+const publicPaths = ['/','/login', '/register']
 
 export const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
-	const { isAuthed, login } = useUserStore()
+	const { isAuthed, setAuth } = useUserStore()
 	const router = useRouter()
 	const pathname = usePathname()
 	const [isChecking, setIsChecking] = useState(true)
@@ -25,14 +25,12 @@ export const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
 			return
 		}
 
-
-		login()
+		setAuth()
 		setIsChecking(false)
-	}, [pathname, login, router])
-
+	}, [pathname, setAuth, router])
 
 	if (isChecking) {
-		return null 
+		return null
 	}
 
 	if (publicPaths.includes(pathname)) {
