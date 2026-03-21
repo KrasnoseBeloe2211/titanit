@@ -2,7 +2,6 @@
 
 import { Test } from "@/_pages";
 
-
-export default function page() {
+export default function MyTestsPage() {
     return <Test />
 }

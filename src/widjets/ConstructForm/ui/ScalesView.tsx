@@ -1,4 +1,4 @@
-import { IScale } from '@/entities/test'
+import { IQuestion, IScale } from '@/entities/test'
 import { ArrowDropDown } from '@mui/icons-material'
 import {
 	Accordion,
@@ -8,7 +8,6 @@ import {
 	Typography,
 	Divider,
 } from '@mui/material'
-import React from 'react'
 
 export const ScalesView = ({ scales }: { scales: IScale[] }) => {
 	return (
@@ -30,9 +29,19 @@ export const ScalesView = ({ scales }: { scales: IScale[] }) => {
 								Уровни:
 							</Typography>
 							{scale.levels.map((level, index) => (
-								<Box key={level.id} mb={2} p={2} bgcolor='#f5f5f5' borderRadius={1}>
+								<Box
+									key={level.id}
+									mb={2}
+									p={2}
+									bgcolor='#f5f5f5'
+									borderRadius={1}
+								>
 									<Typography variant='body2' color='text.secondary' mb={1}>
-										{index === 0 ? 'Низкий' : index === 1 ? 'Средний' : 'Высокий'}
+										{index === 0
+											? 'Низкий'
+											: index === 1
+												? 'Средний'
+												: 'Высокий'}
 									</Typography>
 									<Box display={'flex'} gap={3}>
 										<Typography variant='body2'>

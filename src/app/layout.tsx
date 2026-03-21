@@ -7,8 +7,12 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { Theme } from './theme'
 import { LayoutUI } from '@/widjets'
+<<<<<<< HEAD
 import { UserStoreInitializer } from './UserStoreInitializer'
 
+=======
+import { ToastContainer } from 'react-toastify'
+>>>>>>> 0bcce2e8e1f26da3f59ac514b3b352eaf824a25c
 const geistSans = Geist({
 	variable: '--font-geist-sans',
 	subsets: ['latin'],
@@ -37,6 +41,7 @@ export default function RootLayout({
 						<PrivateRoute>
 							<LayoutUI>{children}</LayoutUI>
 						</PrivateRoute>
+						<ToastContainer />
 						<CssBaseline />
 					</ThemeProvider>
 				</AppRouterCacheProvider>

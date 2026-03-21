@@ -1,2 +1,1 @@
-export * from './ui/Auth'
-
+export { Auth } from '../Auth/ui/Auth'
