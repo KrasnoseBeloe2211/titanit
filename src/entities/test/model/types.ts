@@ -11,12 +11,12 @@ export interface Test {
 
 export interface IQuestion {
 	id: string
-	type: string
+	type: 'single_choice' | 'multi_choice'
 	text: string
-	options: Option[]
+	options?: Option[]
 }
 
-interface Option {
+export interface Option {
 	id: string
 	text: string
 	weights: any
@@ -24,17 +24,16 @@ interface Option {
 
 interface ILevels {
 	id: string
-	label: string
 	score_from: number
 	score_to: number
 	text_client: string
 	text_pro: string
 }
 
-interface IScale {
+export interface IScale {
 	id: string
 	name: string
-	min: number
+	min?: number
 	max: number
 	levels: ILevels[]
 }
